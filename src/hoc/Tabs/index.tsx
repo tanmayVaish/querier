@@ -2,9 +2,9 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import Tab from "./Tab";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { addTab, tableSlice } from "../../redux/tabReducer";
+import { addTab } from "../../redux/tabReducer";
 
-const Tabs = () => {
+const Tabs = ({ children }: Props) => {
 	const tabState = useAppSelector((state) => state.tabs);
 	const dispatch = useAppDispatch();
 	const addTabHandler = () => {
@@ -21,24 +21,34 @@ const Tabs = () => {
 		{ title: "New Tab" },
 	]);
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				gap: "2px",
-			}}
-		>
-			{tabState.tabs.map((item, index) => (
-				<Tab key={index} item={item} />
-			))}
+		<Box>
 			<Box
-				onClick={() => {
-					addTabHandler();
+				sx={{
+					display: "flex",
+					gap: "2px",
+					width: "100%",
+					boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
+					padding: "2px",
 				}}
 			>
-				+
+				{tabState.tabs.map((item, index) => (
+					<Tab key={index} active={tabState.active} item={item} />
+				))}
+				<Box
+					onClick={() => {
+						addTabHandler();
+					}}
+				>
+					+
+				</Box>
 			</Box>
+			<Box>{children}</Box>
 		</Box>
 	);
+};
+
+type Props = {
+	children: JSX.Element;
 };
 
 export default Tabs;

@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
 interface tabValue {
+	// TODO: id system can be alpha numeric
 	id: number;
 	title: string;
 	query: string;
-	active: number;
 }
 
 interface tabState {
@@ -25,13 +25,11 @@ const initialState: tabState = {
 			id: 1,
 			title: "SELECT",
 			query: "",
-			active: 1,
 		},
 		{
 			id: 2,
 			title: "JOIN",
 			query: "",
-			active: 1,
 		},
 	],
 };
@@ -42,11 +40,10 @@ export const tableSlice = createSlice({
 	initialState,
 	reducers: {
 		addTab: (state, action) => {
-			const { id, title, query } = action.payload;
+			const { id, title } = action.payload;
 			const tab: any = {
 				id,
 				title,
-				query,
 			};
 			state.tabs.push(tab);
 			state.totalTab += 1;
@@ -61,7 +58,9 @@ export const tableSlice = createSlice({
 			return newStateCopy;
 		},
 		setActive: (state, action) => {
-			state.active = action.payload;
+			const newState: tabState = { ...state };
+			newState.active = action.payload;
+			return newState;
 		},
 		editTab: (state, action) => {
 			const { id, title, query } = action.payload;

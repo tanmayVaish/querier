@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { deleteTab, setActive } from "../../redux/tabReducer";
 
-const Tab = ({ item }: TabProps) => {
+const Tab = ({ item, active }: TabProps) => {
 	const dispatch = useAppDispatch();
 
 	const removeTabHandler = (ind: number) => {
@@ -15,14 +15,26 @@ const Tab = ({ item }: TabProps) => {
 	};
 	return (
 		<Box
-			sx={{
-				display: "flex",
-				alignItems: "center",
-				width: "250px",
-				justifyContent: "space-between",
-				backgroundColor: "#0CDB94",
-				color: "#FFFFFF",
-				padding: "5px",
+			sx={
+				active === item.id
+					? {
+							display: "flex",
+							alignItems: "center",
+							width: "250px",
+							justifyContent: "space-between",
+							padding: "5px",
+							boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
+					  }
+					: {
+							display: "flex",
+							alignItems: "center",
+							width: "250px",
+							justifyContent: "space-between",
+							padding: "5px",
+					  }
+			}
+			onClick={() => {
+				activeTabHandler(item.id);
 			}}
 		>
 			<Box>
@@ -45,6 +57,7 @@ type TabProps = {
 		id: number;
 		title: string;
 	};
+	active: number;
 };
 
 export default Tab;
