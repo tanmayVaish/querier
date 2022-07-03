@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+	Button,
 	FormControl,
 	InputLabel,
 	MenuItem,
@@ -8,13 +9,25 @@ import {
 	Select,
 } from "@mui/material";
 import DataTable from "./DataTable";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const Main = () => {
 	const mockQuery = ["JOIN", "CREATE", "SELECT"];
 
+	const tabState = useAppSelector((state) => state.tabs);
+
+	useEffect(() => {
+		tabState.tabs.forEach((tab) => {
+			if (tab.id === tabState.active) {
+				setQuery(tab.query.title);
+			}
+		});
+	}, [tabState.active]);
+
 	const [query, setQuery] = useState("SELECT");
-	const handleChange = () => {
-		setQuery("JOIN");
+
+	const handleChange = (value: string) => {
+		setQuery(value);
 	};
 
 	return (
@@ -41,7 +54,9 @@ const Main = () => {
 						id="demo-simple-select"
 						value={query}
 						label="Query"
-						onChange={handleChange}
+						onChange={(e) => {
+							handleChange(e.target.value);
+						}}
 					>
 						{mockQuery.map((item, ind) => (
 							<MenuItem key={ind} value={item}>
@@ -60,6 +75,7 @@ const Main = () => {
 						label="Query"
 					/>
 				</FormControl>
+				<Button variant={"contained"}>RUN</Button>
 			</Box>
 			<DataTable />
 		</Box>

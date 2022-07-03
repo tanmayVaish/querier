@@ -1,11 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
+interface queryValue {
+	title: string;
+	api: string;
+}
+
 interface tabValue {
 	// TODO: id system can be alpha numeric
 	id: number;
 	title: string;
-	query: string;
+	query: queryValue;
 }
 
 interface tabState {
@@ -23,13 +28,8 @@ const initialState: tabState = {
 	tabs: [
 		{
 			id: 1,
-			title: "SELECT",
-			query: "",
-		},
-		{
-			id: 2,
-			title: "JOIN",
-			query: "",
+			title: "new tab",
+			query: { title: "SELECT", api: "https://dummyjson.com/users" },
 		},
 	],
 };
@@ -40,10 +40,11 @@ export const tableSlice = createSlice({
 	initialState,
 	reducers: {
 		addTab: (state, action) => {
-			const { id, title } = action.payload;
+			const { id, title, query } = action.payload;
 			const tab: any = {
 				id,
 				title,
+				query,
 			};
 			state.tabs.push(tab);
 			state.totalTab += 1;

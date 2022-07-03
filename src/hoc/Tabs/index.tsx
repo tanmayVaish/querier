@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import Tab from "./Tab";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addTab } from "../../redux/tabReducer";
@@ -12,14 +12,11 @@ const Tabs = ({ children }: Props) => {
 			addTab({
 				id: tabState.totalTab + 1,
 				title: "new tab",
+				query: { title: "SELECT", api: "https://dummyjson.com/users" },
 			}),
 		);
 	};
-	const [tabs, setTabs] = useState([
-		{ title: "New Tab" },
-		{ title: "New Tab" },
-		{ title: "New Tab" },
-	]);
+
 	return (
 		<Box>
 			<Box

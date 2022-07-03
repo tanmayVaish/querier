@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useAppDispatch } from "../../redux/hooks";
 import { deleteTab, setActive } from "../../redux/tabReducer";
 
