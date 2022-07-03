@@ -10,26 +10,56 @@ import {
 } from "@mui/material";
 import DataTable from "./DataTable";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { editTab } from "../../redux/tabReducer";
 
 const Main = () => {
 	const mockQuery = ["JOIN", "CREATE", "SELECT"];
 
 	const tabState = useAppSelector((state) => state.tabs);
 
+	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		tabState.tabs.forEach((tab) => {
 			if (tab.id === tabState.active) {
 				setQuery(tab.query.title);
+				setCommand(tab.query.command);
 			}
 		});
 	}, [tabState.active]);
 
 	const [query, setQuery] = useState("SELECT");
+	const [command, setCommand] = useState(query);
 
-	const handleChange = (value: string) => {
+	useEffect(() => {
+		handleCommandChange(query);
+	}, [query]);
+
+	const handleQueryChange = (value: string) => {
 		setQuery(value);
 	};
 
+	const handleCommandChange = (value: string) => {
+		setCommand(value);
+	};
+
+	const handleEdit = () => {
+		tabState.tabs.forEach((tab) => {
+			if (tab.id === tabState.active) {
+				dispatch(
+					editTab({
+						id: tab.id,
+						title: query,
+						query: {
+							title: query,
+							command: command,
+							api: "https://dummyjson.com/users",
+						},
+					}),
+				);
+			}
+		});
+	};
 	return (
 		<Box
 			sx={{
@@ -55,7 +85,7 @@ const Main = () => {
 						value={query}
 						label="Query"
 						onChange={(e) => {
-							handleChange(e.target.value);
+							handleQueryChange(e.target.value);
 						}}
 					>
 						{mockQuery.map((item, ind) => (
@@ -70,12 +100,19 @@ const Main = () => {
 					<OutlinedInput
 						sx={{ minWidth: "900px" }}
 						id="component-outlined"
-						// value={name}
-						// onChange={handleChange}
+						value={command}
+						onChange={(e) => handleCommandChange(e.target.value)}
 						label="Query"
 					/>
 				</FormControl>
-				<Button variant={"contained"}>RUN</Button>
+				<Button
+					onClick={() => {
+						handleEdit();
+					}}
+					variant={"contained"}
+				>
+					RUN
+				</Button>
 			</Box>
 			<DataTable />
 		</Box>

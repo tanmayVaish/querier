@@ -4,6 +4,7 @@ import type { RootState } from "./store";
 interface queryValue {
 	title: string;
 	api: string;
+	command: string;
 }
 
 interface tabValue {
@@ -29,7 +30,11 @@ const initialState: tabState = {
 		{
 			id: 1,
 			title: "new tab",
-			query: { title: "SELECT", api: "https://dummyjson.com/users" },
+			query: {
+				title: "SELECT",
+				command: "",
+				api: "https://dummyjson.com/users",
+			},
 		},
 	],
 };
