@@ -28,7 +28,14 @@ const Tab = ({ item }: TabProps) => {
 			<Box>
 				{item.title} {item.id}
 			</Box>
-			<Box onClick={() => removeTabHandler(item.id)}>❌</Box>
+			<Box
+				onClick={() => {
+					console.log(item.id);
+					removeTabHandler(item.id);
+				}}
+			>
+				❌
+			</Box>
 		</Box>
 	);
 };

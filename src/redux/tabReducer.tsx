@@ -5,30 +5,33 @@ interface tabValue {
 	id: number;
 	title: string;
 	query: string;
+	active: number;
 }
 
 interface tabState {
 	total: number;
 	totalTab: number;
 	active: number;
-	tabs: Array<tabValue>;
+	tabs: tabValue[];
 }
 
 // Define the initial state using that type
 const initialState: tabState = {
-	total: 1,
-	totalTab: 1,
+	total: 2,
+	totalTab: 2,
 	active: 1,
 	tabs: [
 		{
 			id: 1,
 			title: "SELECT",
 			query: "",
+			active: 1,
 		},
 		{
 			id: 2,
 			title: "JOIN",
 			query: "",
+			active: 1,
 		},
 	],
 };
@@ -40,24 +43,22 @@ export const tableSlice = createSlice({
 	reducers: {
 		addTab: (state, action) => {
 			const { id, title, query } = action.payload;
-			const tab = {
+			const tab: any = {
 				id,
 				title,
 				query,
-				isDeleted: false,
 			};
 			state.tabs.push(tab);
-			state.total += 1;
 			state.totalTab += 1;
 			state.active = id;
 		},
 		deleteTab: (state, action) => {
 			const newState: tabState = { ...state };
-			console.log(newState, "before");
-			newState.tabs.filter((tab) => tab.id === action.payload);
-			console.log(newState, "after");
-			newState.totalTab -= 1;
-			newState.active = newState.tabs ? newState.tabs[0].id : 1;
+			const a = newState.tabs.filter((tab) => tab.id !== action.payload);
+			const newStateCopy = { ...newState, tabs: a };
+			newStateCopy.totalTab -= 1;
+			newStateCopy.active = newStateCopy.tabs ? newStateCopy.tabs[0].id : 1;
+			return newStateCopy;
 		},
 		setActive: (state, action) => {
 			state.active = action.payload;
