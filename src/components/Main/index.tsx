@@ -17,7 +17,7 @@ import { editTab } from "../../redux/tabReducer";
 const Main = () => {
 	const mockQuery = ["JOIN", "CREATE", "SELECT"];
 
-	const queryApi = {
+	const queryApi: any = {
 		JOIN: "https://dummyjson.com/users?limit=15&skip=0",
 		CREATE: "https://dummyjson.com/users?limit=25&skip=0",
 		SELECT: "https://dummyjson.com/users?limit=35&skip=0",

@@ -30,7 +30,7 @@ const columns: GridColDef[] = [
 ];
 
 export default function DataTable({ setSnackbar }: any) {
-	const [data, setData] = useState({});
+	const [data, setData] = useState({ data: { users: [] } });
 
 	const fetchData = async () => {
 		if (api !== "") {
