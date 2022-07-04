@@ -3,6 +3,7 @@ import React from "react";
 import Tab from "./Tab";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addTab } from "../../redux/tabReducer";
+import AddIcon from "@mui/icons-material/Add";
 
 const Tabs = ({ children }: Props) => {
 	const tabState = useAppSelector((state) => state.tabs);
@@ -26,6 +27,7 @@ const Tabs = ({ children }: Props) => {
 					width: "100%",
 					boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
 					padding: "2px",
+					position: "fixed",
 				}}
 			>
 				{tabState.tabs.map((item, index) => (
@@ -35,8 +37,13 @@ const Tabs = ({ children }: Props) => {
 					onClick={() => {
 						addTabHandler();
 					}}
+					sx={{
+						padding: "2px",
+						cursor: "pointer",
+						width: "100%",
+					}}
 				>
-					+
+					<AddIcon />
 				</Box>
 			</Box>
 			<Box>{children}</Box>

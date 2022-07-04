@@ -29,7 +29,7 @@ const columns: GridColDef[] = [
 	{ field: "phone", headerName: "Phone No.", width: 150 },
 ];
 
-export default function DataTable() {
+export default function DataTable({ setSnackbar }: any) {
 	const [data, setData] = useState({});
 
 	const fetchData = async () => {
@@ -52,7 +52,9 @@ export default function DataTable() {
 	}, [tabState]);
 
 	useEffect(() => {
-		fetchData().then(() => {});
+		fetchData().then(() => {
+			setSnackbar(true);
+		});
 	}, [api]);
 
 	return (

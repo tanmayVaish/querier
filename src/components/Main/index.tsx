@@ -7,6 +7,8 @@ import {
 	MenuItem,
 	OutlinedInput,
 	Select,
+	Snackbar,
+	Alert,
 } from "@mui/material";
 import DataTable from "./DataTable";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -36,6 +38,7 @@ const Main = () => {
 
 	const [query, setQuery] = useState("SELECT");
 	const [command, setCommand] = useState(query);
+	const [snackbar, setSnackbar] = useState(false);
 
 	useEffect(() => {
 		handleCommandChange(query);
@@ -66,6 +69,7 @@ const Main = () => {
 			}
 		});
 	};
+
 	return (
 		<Box
 			sx={{
@@ -81,6 +85,7 @@ const Main = () => {
 					alignItems: "center",
 					justifyContent: "center",
 					gap: "10px",
+					marginTop: "30px",
 				}}
 			>
 				<FormControl>
@@ -120,7 +125,24 @@ const Main = () => {
 					RUN
 				</Button>
 			</Box>
-			<DataTable />
+			<DataTable setSnackbar={setSnackbar} />
+			<Snackbar
+				open={snackbar}
+				onClose={() => {
+					setSnackbar(false);
+				}}
+				autoHideDuration={2000}
+			>
+				<Alert
+					onClose={() => {
+						setSnackbar(false);
+					}}
+					severity="success"
+					sx={{ width: "100%" }}
+				>
+					Query Run Successfully
+				</Alert>
+			</Snackbar>
 		</Box>
 	);
 };

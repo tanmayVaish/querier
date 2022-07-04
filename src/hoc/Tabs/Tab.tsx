@@ -22,15 +22,24 @@ const Tab = ({ item, active }: TabProps) => {
 							alignItems: "center",
 							width: "250px",
 							justifyContent: "space-between",
-							padding: "5px",
+							padding: "8px",
 							boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
+							border: "1px dashed #000",
+							borderTopRightRadius: "20px",
+							borderTopLeftRadius: "20px",
+							minWidth: "150px",
 					  }
 					: {
 							display: "flex",
 							alignItems: "center",
 							width: "250px",
 							justifyContent: "space-between",
-							padding: "5px",
+							padding: "8px",
+							border: "1px dotted #8c8787",
+							borderTopRightRadius: "20px",
+							borderTopLeftRadius: "20px",
+							color: "#8c8787",
+							minWidth: "150px",
 					  }
 			}
 			onClick={() => {
@@ -44,6 +53,9 @@ const Tab = ({ item, active }: TabProps) => {
 				onClick={() => {
 					console.log(item.id);
 					removeTabHandler(item.id);
+				}}
+				sx={{
+					cursor: "pointer",
 				}}
 			>
 				❌
