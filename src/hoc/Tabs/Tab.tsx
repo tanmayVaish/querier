@@ -28,6 +28,7 @@ const Tab = ({ item, active }: TabProps) => {
 							borderTopRightRadius: "20px",
 							borderTopLeftRadius: "20px",
 							minWidth: "150px",
+							cursor: "pointer",
 					  }
 					: {
 							display: "flex",
@@ -40,6 +41,7 @@ const Tab = ({ item, active }: TabProps) => {
 							borderTopLeftRadius: "20px",
 							color: "#8c8787",
 							minWidth: "150px",
+							cursor: "pointer",
 					  }
 			}
 			onClick={() => {
