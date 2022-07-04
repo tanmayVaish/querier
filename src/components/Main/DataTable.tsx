@@ -2,6 +2,7 @@ import * as React from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../redux/hooks";
 
 const columns: GridColDef[] = [
 	{ field: "id", headerName: "ID", width: 70 },
@@ -32,15 +33,27 @@ export default function DataTable() {
 	const [data, setData] = useState({});
 
 	const fetchData = async () => {
-		const data = await axios.get("https://dummyjson.com/users");
-		setData(data);
+		if (api !== "") {
+			const data = await axios.get(api);
+			setData(data);
+		}
 	};
+
+	const tabState = useAppSelector((state) => state.tabs);
+
+	const [api, setApi] = useState("");
+
+	useEffect(() => {
+		tabState.tabs.forEach((tab) => {
+			if (tab.id === tabState.active) {
+				setApi(tab.query.api);
+			}
+		});
+	}, [tabState]);
 
 	useEffect(() => {
 		fetchData().then(() => {});
-	}, []);
-
-	// console.log(data.data.users);
+	}, [api]);
 
 	return (
 		<div style={{ height: 535, width: "100%" }}>

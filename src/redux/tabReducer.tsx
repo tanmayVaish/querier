@@ -23,8 +23,8 @@ interface tabState {
 
 // Define the initial state using that type
 const initialState: tabState = {
-	total: 2,
-	totalTab: 2,
+	total: 1,
+	totalTab: 1,
 	active: 1,
 	tabs: [
 		{
@@ -33,7 +33,7 @@ const initialState: tabState = {
 			query: {
 				title: "SELECT",
 				command: "",
-				api: "https://dummyjson.com/users",
+				api: "https://dummyjson.com/users?limit=23&skip=0",
 			},
 		},
 	],

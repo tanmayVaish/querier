@@ -15,6 +15,12 @@ import { editTab } from "../../redux/tabReducer";
 const Main = () => {
 	const mockQuery = ["JOIN", "CREATE", "SELECT"];
 
+	const queryApi = {
+		JOIN: "https://dummyjson.com/users?limit=15&skip=0",
+		CREATE: "https://dummyjson.com/users?limit=25&skip=0",
+		SELECT: "https://dummyjson.com/users?limit=35&skip=0",
+	};
+
 	const tabState = useAppSelector((state) => state.tabs);
 
 	const dispatch = useAppDispatch();
@@ -53,7 +59,7 @@ const Main = () => {
 						query: {
 							title: query,
 							command: command,
-							api: "https://dummyjson.com/users",
+							api: queryApi[query],
 						},
 					}),
 				);
