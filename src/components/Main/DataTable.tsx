@@ -58,7 +58,7 @@ export default function DataTable({ setSnackbar }: any) {
 	}, [api]);
 
 	return (
-		<div style={{ height: 535, width: "100%" }}>
+		<div style={{ height: "70vh", width: "100%" }}>
 			{data.data && (
 				<DataGrid
 					rows={data.data.users}
@@ -66,6 +66,7 @@ export default function DataTable({ setSnackbar }: any) {
 					pageSize={10}
 					rowsPerPageOptions={[10]}
 					checkboxSelection
+					sx={{ width: "100%" }}
 				/>
 			)}
 		</div>

@@ -83,7 +83,7 @@ const Main = () => {
 				sx={{
 					display: "flex",
 					alignItems: "center",
-					justifyContent: "center",
+					// justifyContent: "center",
 					gap: "10px",
 					marginTop: "30px",
 				}}
@@ -106,10 +106,13 @@ const Main = () => {
 						))}
 					</Select>
 				</FormControl>
-				<FormControl>
+				<FormControl
+					sx={{
+						flexGrow: 1,
+					}}
+				>
 					<InputLabel htmlFor="component-outlined">Type</InputLabel>
 					<OutlinedInput
-						sx={{ minWidth: "900px" }}
 						id="component-outlined"
 						value={command}
 						onChange={(e) => handleCommandChange(e.target.value)}
